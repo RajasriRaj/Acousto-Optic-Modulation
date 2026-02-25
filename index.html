@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acousto-Optic Modulation 3D Model Demo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f7f9fa 60%, #e3e8f0 100%);
+      color: #222;
+      margin: 0;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(90deg, #2b3a67 70%, #3e5c9a 100%);
+      color: #fff;
+      padding: 2.5rem 1rem 1.5rem 1rem;
+      text-align: center;
+      box-shadow: 0 2px 16px #0002;
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+    }
+    h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2.7rem;
+      letter-spacing: 1px;
+      font-weight: 700;
+      text-shadow: 0 2px 8px #0003;
+    }
+    h2 {
+      color: #2b3a67;
+      margin-top: 2.2rem;
+      font-size: 1.45rem;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .container {
+      max-width: 980px;
+      margin: 2.5rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px #0002;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .section {
+      margin-bottom: 2.7rem;
+      background: #f8fbff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #0001;
+      padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+      transition: box-shadow 0.2s;
+    }
+    .section:hover {
+      box-shadow: 0 6px 24px #2b3a6722;
+    }
+    .colab-link {
+      display: inline-block;
+      background: linear-gradient(90deg, #ffd600 70%, #ffe066 100%);
+      color: #222;
+      padding: 0.8em 1.5em;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-top: 1rem;
+      font-size: 1.1em;
+      box-shadow: 0 2px 8px #ffd60044;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .colab-link:hover {
+      background: linear-gradient(90deg, #ffe066 60%, #ffd600 100%);
+      box-shadow: 0 4px 16px #ffd60066;
+    }
+    .model-frame {
+      width: 100%;
+      height: 400px;
+      border: 1.5px solid #c7d0e0;
+      border-radius: 10px;
+      background: linear-gradient(120deg, #e9ecef 70%, #dbeafe 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      font-size: 1.2rem;
+      margin-top: 1.2rem;
+      box-shadow: 0 2px 8px #0001;
+    }
+    ol {
+      padding-left: 1.5em;
+    }
+    li {
+      margin-bottom: 1.1em;
+      line-height: 1.6;
+    }
+    ul {
+      margin-bottom: 0.7em;
+    }
+    @media (max-width: 800px) {
+      .container { padding: 1.2rem; }
+      .section { padding: 1rem 0.7rem; }
+    }
+    @media (max-width: 500px) {
+      h1 { font-size: 1.5rem; }
+      .container { padding: 0.3rem; }
+      .section { padding: 0.5rem 0.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Acousto-Optic Modulation</h1>
+    <p>Interactive 3D Model & Effective Optics Concepts</p>
+  </header>
+  <div class="container">
+    <div class="section">
+      <h2>3D Model Demonstration</h2>
+        <!-- Animated SVG: Red laser, crystal, and split beams -->
+        <div style="background:#111;display:flex;justify-content:center;align-items:center;padding:1.5rem 0 1rem 0;border-radius:10px;margin-bottom:1rem;">
+          <svg id="aom-anim" width="420" height="180" viewBox="0 0 420 180" style="max-width:100%;height:auto;display:block;" aria-label="Acousto-optic effect animation">
+            <defs>
+              <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ff6666" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#111" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="laser" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#ff2222"/>
+                <stop offset="100%" stop-color="#ffaaaa"/>
+              </linearGradient>
+              <linearGradient id="split1" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#ff2222"/>
+                <stop offset="100%" stop-color="#ffaaaa"/>
+              </linearGradient>
+              <linearGradient id="split2" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#ff2222"/>
+                <stop offset="100%" stop-color="#ffaaaa"/>
+              </linearGradient>
+            </defs>
+            <!-- Incoming laser pulse (animated) -->
+            <rect id="laserPulse" x="30" y="85" width="0" height="10" fill="url(#laser)" rx="5"/>
+            <ellipse cx="40" cy="90" rx="18" ry="8" fill="url(#glow)"/>
+            <!-- Crystal -->
+            <polygon points="150,70 180,60 200,90 170,110" fill="#66e0ff" stroke="#b3f0ff" stroke-width="2" opacity="0.85"/>
+            <polygon points="150,70 170,110 150,110" fill="#33bbee" opacity="0.5"/>
+            <!-- Split beams (animated) -->
+            <rect id="split1" x="200" y="80" width="0" height="7" fill="url(#split1)" rx="3.5" transform="rotate(-10 200 83.5)"/>
+            <rect id="split2" x="200" y="93" width="0" height="7" fill="url(#split2)" rx="3.5" transform="rotate(12 200 96.5)"/>
+            <!-- Beam glows -->
+            <ellipse cx="340" cy="77" rx="18" ry="7" fill="url(#glow)"/>
+            <ellipse cx="340" cy="110" rx="18" ry="7" fill="url(#glow)"/>
+            <!-- Crystal highlight -->
+            <ellipse cx="180" cy="90" rx="10" ry="18" fill="#fff" opacity="0.13"/>
+          </svg>
+          <script>
+          // Animate the laser pulse and split beams
+          (function(){
+            const laser = document.getElementById('laserPulse');
+            const split1 = document.getElementById('split1');
+            const split2 = document.getElementById('split2');
+            let t = 0;
+            function animate() {
+              t += 0.03;
+              // Animate incoming laser pulse (width grows from 0 to 120)
+              let w = 120 * Math.abs(Math.sin(t));
+              laser.setAttribute('width', w.toFixed(1));
+              // Animate split beams (width grows from 0 to 140, delayed)
+              let splitW = 140 * Math.max(0, Math.sin(t-0.7));
+              split1.setAttribute('width', splitW.toFixed(1));
+              split2.setAttribute('width', splitW.toFixed(1));
+              requestAnimationFrame(animate);
+            }
+            animate();
+          })();
+          </script>
+        </div>
+      <div class="model-frame">
+        <!-- Replace this with your 3D model embed (e.g., Three.js, Sketchfab, or custom WebGL) -->
+        3D Model Placeholder<br>
+        <span style="font-size:0.9em; color:#aaa;">(Embed your interactive model here)</span>
+      </div>
+    </div>
+    <div class="section">
+        <h2>Key Components of the AOM Setup</h2>
+        <ul>
+          <li><strong>Laser Source:</strong> Provides a coherent, monochromatic beam (e.g., diode or HeNe laser) for modulation.</li>
+          <li><strong>Acousto-Optic Crystal:</strong> Special material (like TeO₂ or quartz) where the acousto-optic effect occurs, acting as a tunable diffraction grating.</li>
+          <li><strong>RF Driver:</strong> Generates the radio-frequency signal that creates the acoustic wave inside the crystal.</li>
+          <li><strong>Beam Shaping Optics:</strong> Lenses and collimators to focus and direct the laser beam into the crystal.</li>
+          <li><strong>Photodetector:</strong> Measures the intensity of the diffracted (modulated) light for analysis.</li>
+          <li><strong>Optical Mounts & Alignment Tools:</strong> Ensure precise positioning and stability of all components.</li>
+        </ul>
+      </div>
+      <div class="section">
+      <h2>Acousto-Optic Modulation Explained</h2>
+      <p>
+        Acousto-Optic Modulators (AOMs) use sound waves to diffract and control laser beams inside a crystal. When an RF signal drives an acoustic wave, it creates a periodic change in the refractive index, acting as a diffraction grating for light. This enables precise control of beam direction, intensity, and timing—key for applications in LiDAR, spectroscopy, and quantum photonics.
+      </p>
+    </div>
+    <div class="section">
+      <h2>Effective Optics Concepts</h2>
+      <ul>
+        <li><strong>Bragg Diffraction:</strong> The condition for maximum diffraction efficiency, determined by the angle between the incident light and the acoustic wavefronts.</li>
+        <li><strong>Beam Deflection:</strong> Changing the RF frequency alters the diffraction angle, steering the output beam.</li>
+        <li><strong>Intensity Modulation:</strong> Varying the RF power modulates the intensity of the diffracted beam.</li>
+        <li><strong>Temporal Response:</strong> The speed at which the AOM can switch or modulate light, limited by acoustic transit time.</li>
+      </ul>
+      </div>
+      <div class="section">
+        <h2>Applications of Acousto-Optic Modulators</h2>
+        <ul>
+          <li><strong>LiDAR Systems:</strong> For fast, precise beam steering and ranging in autonomous vehicles and mapping.</li>
+          <li><strong>Spectroscopy:</strong> Wavelength selection and rapid scanning in scientific instruments.</li>
+          <li><strong>Quantum Optics:</strong> Pulse picking, switching, and modulation in quantum communication and computing.</li>
+          <li><strong>Laser Scanning & Imaging:</strong> Used in confocal microscopy and laser display technologies.</li>
+          <li><strong>Telecommunications:</strong> Modulating and routing optical signals in fiber networks.</li>
+        </ul>
+        </div>
+        <div class="section">
+            <h2>Core Experiments for AOM-Based Optics Course</h2>
+            <ol style="padding-left:1.2em;">
+              <li><b>Beam Steering Using AOM</b><br>
+                <i>Objective:</i> Demonstrate how changing RF frequency alters the diffraction angle of the laser beam.<br>
+                <i>Setup:</i> Laser → Mirror → Lens → AOM → Screen or detector.<br>
+                <i>Procedure:</i> Vary RF frequency using the function generator and observe beam deflection.<br>
+                <i>Learning Outcome:</i> Understand Bragg diffraction and angular beam control.
+              </li>
+              <li><b>Diffraction Efficiency vs RF Power</b><br>
+                <i>Objective:</i> Measure how the intensity of the diffracted beam changes with RF input power.<br>
+                <i>Setup:</i> Laser → AOM → Photodetector → Oscilloscope.<br>
+                <i>Procedure:</i> Vary RF amplitude and record output signal on oscilloscope.<br>
+                <i>Learning Outcome:</i> Explore the relationship between acoustic wave amplitude and light modulation.
+              </li>
+              <li><b>Temporal Modulation of Laser Beam</b><br>
+                <i>Objective:</i> Use AOM to modulate laser intensity in time domain.<br>
+                <i>Setup:</i> Laser → AOM → Detector → Oscilloscope.<br>
+                <i>Procedure:</i> Apply square wave or sine wave from function generator to AOM and observe intensity modulation.<br>
+                <i>Learning Outcome:</i> Learn how AOMs act as optical switches or modulators.
+              </li>
+              <li><b>Bragg Condition Alignment</b><br>
+                <i>Objective:</i> Align the AOM to satisfy Bragg condition for maximum diffraction.<br>
+                <i>Setup:</i> Laser → AOM → Screen.<br>
+                <i>Procedure:</i> Adjust AOM angle and RF frequency to find optimal diffraction.<br>
+                <i>Learning Outcome:</i> Understand phase matching and acoustic-optic interaction geometry.
+              </li>
+              <li><b>Frequency Shift Measurement</b><br>
+                <i>Objective:</i> Measure the frequency shift of the diffracted beam due to Doppler effect.<br>
+                <i>Setup:</i> Laser → AOM → Interferometer or frequency-sensitive detector.<br>
+                <i>Procedure:</i> Analyze beat frequency between undiffracted and diffracted beams.<br>
+                <i>Learning Outcome:</i> Explore frequency modulation and Doppler shift in optics.
+              </li>
+              <li><b>Optical Switching and Pulse Generation</b><br>
+                <i>Objective:</i> Use AOM to switch laser beams on/off rapidly.<br>
+                <i>Setup:</i> Function generator (square wave) → AOM → Detector → Oscilloscope.<br>
+                <i>Procedure:</i> Generate optical pulses and measure pulse width and timing.<br>
+                <i>Outcome:</i> Demonstrates AOM as a fast optical switch for time-domain control.
+              </li>
+              <li><b>Amplitude Modulation of Laser Beam</b><br>
+                <i>Objective:</i> Modulate laser intensity using analog RF signals.<br>
+                <i>Setup:</i> Function generator (sine wave) → AOM → Detector → Oscilloscope.<br>
+                <i>Procedure:</i> Observe sinusoidal modulation of light intensity.<br>
+                <i>Outcome:</i> Introduces analog modulation concepts in optics.
+              </li>
+              <li><b>Laser Beam Deflection Mapping</b><br>
+                <i>Objective:</i> Quantify beam deflection angle vs RF frequency.<br>
+                <i>Setup:</i> Laser → AOM → Screen → Ruler or camera.<br>
+                <i>Procedure:</i> Record beam position for different RF frequencies.<br>
+                <i>Outcome:</i> Builds understanding of spatial beam control and calibration.
+              </li>
+              <li><b>Multi-Frequency Beam Splitting</b><br>
+                <i>Objective:</i> Generate multiple diffracted beams using composite RF signals.<br>
+                <i>Setup:</i> RF mixer or multi-tone generator → AOM → Screen.<br>
+                <i>Procedure:</i> Apply two RF frequencies and observe dual beam paths.<br>
+                <i>Outcome:</i> Demonstrates frequency multiplexing in optical domain.
+              </li>
+              <li><b>Real-Time Signal Visualization</b><br>
+                <i>Objective:</i> Correlate RF input waveform with optical output.<br>
+                <i>Setup:</i> Function generator → AOM → Detector → Oscilloscope (dual channel).<br>
+                <i>Procedure:</i> Compare RF signal and optical response side-by-side.<br>
+                <i>Outcome:</i> Reinforces signal processing concepts with optical feedback.
+              </li>
+              <li><b>AOM-Based Intensity Stabilization</b><br>
+                <i>Objective:</i> Use feedback to stabilize laser intensity via AOM control.<br>
+                <i>Setup:</i> Laser → AOM → Detector → Oscilloscope + feedback loop.<br>
+                <i>Procedure:</i> Monitor output and adjust RF amplitude to maintain constant intensity.<br>
+                <i>Outcome:</i> Introduces control systems and feedback in optics.
+              </li>
+              <li><b>RF Frequency Sweep and Beam Tracking</b><br>
+                <i>Objective:</i> Sweep RF frequency and track beam movement across a calibrated screen.<br>
+                <i>Setup:</i> Function generator (sweep mode) → AOM → Screen + camera or ruler.<br>
+                <i>Procedure:</i> Record beam path as frequency changes.<br>
+                <i>Outcome:</i> Demonstrates continuous beam steering and spatial mapping.
+              </li>
+              <li><b>AOM as Optical Chopper</b><br>
+                <i>Objective:</i> Replace mechanical chopper with AOM for high-speed modulation.<br>
+                <i>Setup:</i> Laser → AOM → Detector → Oscilloscope.<br>
+                <i>Procedure:</i> Apply square wave RF signal and measure chopping frequency.<br>
+                <i>Outcome:</i> Highlights AOM’s speed advantage over mechanical systems.
+              </li>
+              <li><b>RF Signal Characterization</b><br>
+                <i>Objective:</i> Analyze RF waveform properties and correlate with optical output.<br>
+                <i>Setup:</i> Function generator → Oscilloscope (Channel A: RF, Channel B: Optical).<br>
+                <i>Procedure:</i> Compare amplitude, frequency, and phase between RF and light.<br>
+                <i>Outcome:</i> Bridges electronics and optics domains.
+              </li>
+              <li><b>Beam Profile Analysis</b><br>
+                <i>Objective:</i> Study spatial profile of diffracted beam.<br>
+                <i>Setup:</i> Laser → AOM → Beam profiler or camera.<br>
+                <i>Procedure:</i> Capture and analyze beam shape, divergence, and intensity distribution.<br>
+                <i>Outcome:</i> Teaches beam diagnostics and optical quality assessment.
+              </li>
+              <li><b>Acousto-Optic Q-Switching Simulation</b><br>
+                <i>Objective:</i> Simulate Q-switching behavior using AOM to control laser cavity losses.<br>
+                <i>Setup:</i> Laser cavity with AOM inserted → RF control → Oscilloscope.<br>
+                <i>Procedure:</i> Modulate RF to simulate cavity dumping and observe pulse generation.<br>
+                <i>Outcome:</i> Introduces laser dynamics and pulse generation techniques.
+              </li>
+              <li><b>AOM-Based Frequency Modulation (FM)</b><br>
+                <i>Objective:</i> Apply FM signal to AOM and observe frequency shift in diffracted beam.<br>
+                <i>Setup:</i> Function generator (FM mode) → AOM → Detector → Spectrum analyzer or oscilloscope.<br>
+                <i>Procedure:</i> Analyze frequency components of modulated light.<br>
+                <i>Outcome:</i> Bridges RF modulation theory with optical frequency control.
+              </li>
+              <li><b>Laser Beam Raster Scanning</b><br>
+                <i>Objective:</i> Use AOM to steer beam in one axis and mirror for second axis to simulate raster scan.<br>
+                <i>Setup:</i> Laser → AOM → Mirror (galvo or rotating) → Screen.<br>
+                <i>Procedure:</i> Synchronize RF sweep with mirror motion to create 2D scan pattern.<br>
+                <i>Outcome:</i> Demonstrates principles behind LiDAR and laser imaging.
+              </li>
+              <li><b>AOM as Real-Time Optical Attenuator</b><br>
+                <i>Objective:</i> Control beam intensity dynamically using RF amplitude.<br>
+                <i>Setup:</i> Laser → AOM → Detector → Oscilloscope.<br>
+                <i>Procedure:</i> Vary RF amplitude and observe corresponding optical power.<br>
+                <i>Outcome:</i> Shows how AOMs can be used for power regulation in sensitive setups.
+              </li>
+              <li><b>Acousto-Optic Spectral Filtering (if tunable AOM or AOTF available)</b><br>
+                <i>Objective:</i> Select specific wavelengths from a broadband source using RF control.<br>
+                <i>Setup:</i> Broadband source → AOTF → Detector.<br>
+                <i>Procedure:</i> Tune RF frequency to pass desired wavelength.<br>
+                <i>Outcome:</i> Demonstrates wavelength-selective filtering for spectroscopy.
+              </li>
+            </ol>
+    </div>
+    <div class="section">
+      <h2>Try the Interactive Colab Notebook</h2>
+      <a class="colab-link" href="https://colab.research.google.com/drive/15PIfs3b8MTXskooqwiohUh0ydA2IxYNP" target="_blank" rel="noopener">Open in Google Colab</a>
+    </div>
+  </div>
+</body>
+</html>
